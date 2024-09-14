@@ -1,0 +1,24 @@
+import 'knex';
+
+declare module 'knex/types/tables' {
+  interface Tables {
+    users: {
+      id: string;
+      name: string;
+      email: string;
+      password: string;
+      created_at: string;
+      updated_at: string;
+    };
+    meats: {
+      id: string;
+      name: string;
+      description: string;
+      eaten_at: string;
+      type: 'INCOME' | 'OUTCOME';
+      user_id: string;
+      created_at: string;
+      updated_at: string;
+    }
+  }
+}

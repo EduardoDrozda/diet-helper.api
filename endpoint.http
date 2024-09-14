@@ -1,0 +1,16 @@
+### Variables
+@apiurl = http://localhost:3333/api
+
+
+## USERS
+### POST /users
+
+POST {{apiurl}}/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "name",
+  "email": "email@email.com",
+  "password": "password",
+  "confirmPassword": "password"
+}

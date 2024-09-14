@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: diet_helper__db
+    image: postgres:12.4
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: diet_helper__db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - diet_helper__network
+
+volumes:
+  db_data:
+
+networks:
+  diet_helper__network:
+    driver: bridge
