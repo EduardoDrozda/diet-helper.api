@@ -6,7 +6,7 @@ import { MeatTypeEnum } from '@domain/enums';
 
 describe('MeatController', () => {
   let controller: MeatController;
-  let service: IMeatService = {
+  const service: IMeatService = {
     create: jest.fn(),
     findById: jest.fn(),
     findAllByUserId: jest.fn(),
@@ -55,7 +55,7 @@ describe('MeatController', () => {
   });
 
   it('should find all meats by user id', async () => {
-    const userId = '123'
+    const userId = '123';
     jest.spyOn(service, 'findAllByUserId').mockResolvedValue([]);
     await controller.findAllByUserId(userId);
 

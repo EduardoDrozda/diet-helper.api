@@ -1,4 +1,8 @@
-import { CreateMeatDTO, GetMeatDTO, UpdateMeatDTO } from "@application/dtos/meat";
+import {
+  CreateMeatDTO,
+  GetMeatDTO,
+  UpdateMeatDTO,
+} from '@application/dtos/meat';
 
 export const MEAT_SERVICE = Symbol('MEAT_SERVICE');
 

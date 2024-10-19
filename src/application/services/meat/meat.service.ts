@@ -1,13 +1,18 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { IMeatService } from './IMeat.service';
+
 import { IMeatRepository, MEAT_REPOSITORY } from '@domain/repositories';
-import { GetMeatDTO, CreateMeatDTO, UpdateMeatDTO } from '@application/dtos/meat';
+import {
+  GetMeatDTO,
+  CreateMeatDTO,
+  UpdateMeatDTO,
+} from '@application/dtos/meat';
+import { IMeatService } from '@domain/services/meat';
 
 @Injectable()
 export class MeatService implements IMeatService {
   constructor(
-    @Inject(MEAT_REPOSITORY) private readonly meatRepository: IMeatRepository
-  ) { }
+    @Inject(MEAT_REPOSITORY) private readonly meatRepository: IMeatRepository,
+  ) {}
 
   async findAllByUserId(userId: string): Promise<GetMeatDTO[]> {
     const result = await this.meatRepository.findAllByUserId(userId);
@@ -32,7 +37,7 @@ export class MeatService implements IMeatService {
       eatenAt: meat.eaten_at,
       type: meat.type,
       userId: meat.user_id,
-    }
+    };
   }
 
   async create(meat: CreateMeatDTO): Promise<GetMeatDTO> {
@@ -65,7 +70,7 @@ export class MeatService implements IMeatService {
       eatenAt: result.eaten_at,
       type: result.type,
       userId: result.user_id,
-    }
+    };
   }
 
   async delete(id: string, userId: string): Promise<void> {

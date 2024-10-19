@@ -1,4 +1,4 @@
-import { CreateMeatInput, Meat, UpdateMeatInput } from "@domain/entities";
+import { CreateMeatInput, Meat, UpdateMeatInput } from '@domain/entities';
 
 export const MEAT_REPOSITORY = Symbol('MEAT_REPOSITORY');
 

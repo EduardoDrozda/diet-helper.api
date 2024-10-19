@@ -1,8 +1,7 @@
-import { Meat, CreateMeatInput, UpdateMeatInput } from "@domain/entities";
-import { IMeatRepository } from "@domain/repositories";
-import { knex } from "@infrastructure/database";
-import { Knex } from "knex";
-
+import { Meat, CreateMeatInput, UpdateMeatInput } from '@domain/entities';
+import { IMeatRepository } from '@domain/repositories';
+import { knex } from '@infrastructure/database';
+import { Knex } from 'knex';
 
 export class MeatRepository implements IMeatRepository {
   private readonly knex: Knex;
@@ -16,7 +15,11 @@ export class MeatRepository implements IMeatRepository {
   }
 
   async findById(id: string, userId: string): Promise<Meat | null> {
-    return this.knex<Meat>('meats').select('*').where('id', id).and.where('user_id', userId).first();
+    return this.knex<Meat>('meats')
+      .select('*')
+      .where('id', id)
+      .and.where('user_id', userId)
+      .first();
   }
 
   async create(meat: CreateMeatInput): Promise<Meat> {
@@ -25,7 +28,10 @@ export class MeatRepository implements IMeatRepository {
   }
 
   async update(id: string, meat: UpdateMeatInput): Promise<Meat> {
-    const [result] = await this.knex<Meat>('meats').where('id', id).update(meat).returning('*');
+    const [result] = await this.knex<Meat>('meats')
+      .where('id', id)
+      .update(meat)
+      .returning('*');
     return result;
   }
 

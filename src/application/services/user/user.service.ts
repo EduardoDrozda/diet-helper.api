@@ -1,7 +1,8 @@
 import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
-import { IUserService } from '@application/services/user';
+
 import { User } from '@domain/entities';
 import { IUserRepository, USER_REPOSITORY } from '@domain/repositories';
+import { IUserService } from '@domain/services/user';
 import { BadRequestException, Inject, NotFoundException } from '@nestjs/common';
 
 export class UserService implements IUserService {

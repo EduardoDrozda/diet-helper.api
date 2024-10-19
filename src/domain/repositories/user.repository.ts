@@ -1,4 +1,4 @@
-import { CreateUserInput, User } from "@domain/entities";
+import { CreateUserInput, User } from '@domain/entities';
 
 export const USER_REPOSITORY = Symbol('UserRepository');
 

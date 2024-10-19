@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { UserController } from './controllers/user';
-import { USER_SERVICE, UserService } from '@application/services/user';
-import { UserRepository, } from '@infrastructure/repositories/user';
+
+import { UserRepository } from '@infrastructure/repositories/user';
 import { USER_REPOSITORY } from '@domain/repositories';
+import { USER_SERVICE } from '@domain/services/user';
+import { UserService } from '@application/services/user';
+import { FILE_SERVICE } from '@domain/services/file';
+import { FileService } from '@application/services/file/file.service';
 
 @Module({
   controllers: [UserController],
@@ -15,6 +19,10 @@ import { USER_REPOSITORY } from '@domain/repositories';
       provide: USER_SERVICE,
       useClass: UserService,
     },
+    {
+      provide: FILE_SERVICE,
+      useClass: FileService,
+    },
   ],
 })
-export class UserModule { }
+export class UserModule {}

@@ -1,25 +1,29 @@
-import { INestApplication, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {
+  ENVIROMENT_SERVICE,
+  IEnviromentService,
+} from '@infrastructure/enviroment';
 
 export class Application {
   private app: INestApplication;
-  private configService: ConfigService;
+  private enviromentService: IEnviromentService;
   private globalPrefix = 'api';
 
   private async setApplication(): Promise<void> {
     this.app = await NestFactory.create(AppModule);
-    this.configService = this.app.get(ConfigService);
+    this.enviromentService = this.app.get(ENVIROMENT_SERVICE);
   }
 
-  private async setGlobalPrefix(): Promise<void> {
+  private async setGlobalScopes(): Promise<void> {
     this.app.setGlobalPrefix(this.globalPrefix);
+    this.app.useGlobalPipes(new ValidationPipe());
   }
 
   private getPort(): number {
-    return this.configService.get<number>('APP_PORT');
+    return this.enviromentService.get<number>('APP_PORT');
   }
 
   private async configSwagger(): Promise<void> {
@@ -30,12 +34,12 @@ export class Application {
       .build();
 
     const document = SwaggerModule.createDocument(this.app, config);
-    SwaggerModule.setup('swagger', this.app, document)
+    SwaggerModule.setup('swagger', this.app, document);
   }
 
   async start(): Promise<void> {
     await this.setApplication();
-    await this.setGlobalPrefix();
+    await this.setGlobalScopes();
     await this.configSwagger();
     const port = this.getPort();
 
@@ -44,7 +48,7 @@ export class Application {
       .then(() => {
         Logger.log(
           `🚀 Application is running on: http://localhost:${port}/${this.globalPrefix}`,
-          'Application'
+          'Application',
         );
       })
       .catch((error) => {

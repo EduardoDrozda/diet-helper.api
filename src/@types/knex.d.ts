@@ -7,6 +7,7 @@ declare module 'knex/types/tables' {
       name: string;
       email: string;
       password: string;
+      avatar_id: string;
       created_at: string;
       updated_at: string;
     };
@@ -19,6 +20,6 @@ declare module 'knex/types/tables' {
       user_id: string;
       created_at: string;
       updated_at: string;
-    }
+    };
   }
 }

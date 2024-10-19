@@ -1,13 +1,29 @@
-import { CreateMeatDTO, GetMeatDTO, UpdateMeatDTO } from '@application/dtos/meat';
-import { IMeatService, MEAT_SERVICE } from '@application/services/meat';
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Post, Put } from '@nestjs/common';
+import {
+  CreateMeatDTO,
+  GetMeatDTO,
+  UpdateMeatDTO,
+} from '@application/dtos/meat';
+import { IMeatService, MEAT_SERVICE } from '@domain/services/meat';
+
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Meats')
 @Controller(':userId/meats')
 export class MeatController {
   constructor(
-    @Inject(MEAT_SERVICE) private readonly meatService: IMeatService
+    @Inject(MEAT_SERVICE) private readonly meatService: IMeatService,
   ) {}
 
   @Get()
@@ -49,7 +65,11 @@ export class MeatController {
     status: HttpStatus.OK,
     type: GetMeatDTO,
   })
-  async update(@Param('userId') userId: string, @Param('id') id: string, @Body() meat: UpdateMeatDTO) {
+  async update(
+    @Param('userId') userId: string,
+    @Param('id') id: string,
+    @Body() meat: UpdateMeatDTO,
+  ) {
     meat.userId = userId;
     return await this.meatService.update(id, meat);
   }

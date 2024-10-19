@@ -1,4 +1,4 @@
 export enum MeatTypeEnum {
   INCOME = 'INCOME',
-  OUTCOME = 'OUTCOME'
+  OUTCOME = 'OUTCOME',
 }

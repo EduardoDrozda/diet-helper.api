@@ -1,4 +1,4 @@
-import { MeatTypeEnum } from "@domain/enums";
+import { MeatTypeEnum } from '@domain/enums';
 
 export type Meat = {
   id: string;
@@ -10,7 +10,10 @@ export type Meat = {
 
   createdAt: string;
   updatedAt: string;
-}
+};
 
-export type CreateMeatInput = Pick<Meat, 'name' | 'description' | 'eaten_at' | 'type' | 'user_id'>;
+export type CreateMeatInput = Pick<
+  Meat,
+  'name' | 'description' | 'eaten_at' | 'type' | 'user_id'
+>;
 export type UpdateMeatInput = Partial<CreateMeatInput>;

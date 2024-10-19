@@ -6,7 +6,7 @@ import { MeatTypeEnum } from '@domain/enums';
 
 describe('MeatService', () => {
   let service: MeatService;
-  let repository: IMeatRepository = {
+  const repository: IMeatRepository = {
     create: jest.fn(),
     delete: jest.fn(),
     findAllByUserId: jest.fn(),

@@ -1,4 +1,4 @@
-import { MeatTypeEnum } from "@domain/enums";
+import { MeatTypeEnum } from '@domain/enums';
 
 export class CreateMeatDTO {
   name: string;

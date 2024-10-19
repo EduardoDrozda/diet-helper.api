@@ -15,8 +15,24 @@ services:
     networks:
       - diet_helper__network
 
+  storage:
+    container_name: diet_helper__storage
+    image: bitnami/minio:latest
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=12345678
+      - MINIO_DEFAULT_BUCKETS=diet-helper
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - storage_data:/data
+    networks:
+      - diet_helper__network
+
 volumes:
   db_data:
+  storage_data:
 
 networks:
   diet_helper__network:

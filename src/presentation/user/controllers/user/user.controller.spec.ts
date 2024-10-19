@@ -5,7 +5,7 @@ import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 
 fdescribe('UserController', () => {
   let controller: UserController;
-  let service: IUserService = {
+  const service: IUserService = {
     create: jest.fn(),
     findById: jest.fn(),
   };
