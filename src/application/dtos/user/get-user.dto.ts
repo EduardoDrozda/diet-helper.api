@@ -10,6 +10,9 @@ export class GetUserDTO {
   @ApiProperty({ example: 'John Doe' })
   name: string;
 
+  @ApiProperty({ example: 'https://example.com/avatar.png' })
+  avatar_url?: string;
+
   @ApiProperty({ example: '2021-07-20T00:00:00.000Z' })
   created_at: string;
 

@@ -44,6 +44,6 @@ export class UserController {
   })
   @HttpCode(HttpStatus.CREATED)
   async uploadAvatar(@UploadedFile() avatar: UploadFileDTO): Promise<void> {
-    return await this.fileService.upload(avatar);
+    // return this.userService.uploadAvatar(avatar.id, avatar);
   }
 }

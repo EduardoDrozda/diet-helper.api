@@ -1,3 +1,4 @@
+import { UploadFileDTO } from '@application/dtos/file/upload-file.dto';
 import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 
 import { User } from '@domain/entities';
@@ -41,5 +42,9 @@ export class UserService implements IUserService {
 
   private async findByEmail(email: string): Promise<User> {
     return this.userRepository.findByEmail(email);
+  }
+
+  uploadAvatar(id: string, avatar: UploadFileDTO): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 }

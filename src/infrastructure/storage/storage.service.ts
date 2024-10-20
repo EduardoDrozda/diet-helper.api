@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { IStorageService } from './IStorage.service';
+import { IStorageService, StorageFile, StoredFile } from './IStorage.service';
 import { MinioService as Client, MinioClient } from 'nestjs-minio-client';
 import {
   ENVIROMENT_SERVICE,
@@ -25,17 +25,25 @@ export class StorageService implements IStorageService<MinioClient> {
   ) {}
 
   async upload(
-    file: any,
+    file: StorageFile,
     bucketName: string = this.bucketName,
-  ): Promise<string> {
+  ): Promise<StoredFile> {
     this.logger.log(`Uploading file to bucket: ${bucketName}`);
-    const uploadedFile = await this.minioClient.client.putObject(
+    const { etag } = await this.minioClient.client.putObject(
       bucketName,
       file.originalname,
       file.buffer,
     );
 
-    return uploadedFile.etag;
+    return {
+      name: etag,
+      url: this.getUrl(file.originalname, bucketName),
+    };
+  }
+
+  private getUrl(file: string, bucketName: string = this.bucketName): string {
+    const url = this.enviromentService.get<string>('MINIO_URL');
+    return `${url}/${bucketName}/${file}`;
   }
 
   async delete(

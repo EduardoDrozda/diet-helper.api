@@ -6,6 +6,7 @@ export interface EnviromentParams {
   DB_USER: string;
   DB_PASSWORD: string;
   DB_NAME: string;
+  MINIO_URL: string;
   MINIO_ENDPOINT: string;
   MINIO_PORT: string;
   MINIO_ROOT_USER: string;

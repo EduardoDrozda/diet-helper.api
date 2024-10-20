@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { IStorageClientService, StorageFile } from './IStorage.service';
+import {
+  IStorageClientService,
+  StorageFile,
+  StoredFile,
+} from './IStorage.service';
 import { StorageService } from './storage.service';
 
 @Injectable()
 export class StorageClientService implements IStorageClientService {
   constructor(private readonly storageService: StorageService) {}
 
-  async upload(file: StorageFile, bucketName?: string): Promise<string> {
+  async upload(file: StorageFile, bucketName?: string): Promise<StoredFile> {
     return this.storageService.upload(file, bucketName);
   }
 

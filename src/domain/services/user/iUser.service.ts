@@ -1,3 +1,4 @@
+import { UploadFileDTO } from '@application/dtos/file/upload-file.dto';
 import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 
 export const USER_SERVICE = Symbol('UserService');
@@ -5,4 +6,5 @@ export const USER_SERVICE = Symbol('UserService');
 export interface IUserService {
   create(data: CreateUserDTO): Promise<GetUserDTO>;
   findById(id: string): Promise<GetUserDTO>;
+  uploadAvatar(id: string, avatar: UploadFileDTO): Promise<void>;
 }

@@ -8,6 +8,7 @@ export default Joi.object({
   DB_USER: Joi.string().required(),
   DB_PASSWORD: Joi.string().required(),
   DB_NAME: Joi.string().required(),
+  MINIO_URL: Joi.string().required(),
   MINIO_ENDPOINT: Joi.string().required(),
   MINIO_PORT: Joi.number().required(),
   MINIO_ROOT_USER: Joi.string().required(),

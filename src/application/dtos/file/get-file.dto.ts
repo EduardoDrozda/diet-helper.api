@@ -1,6 +1,5 @@
-export type File = {
+export class GetFileDTO {
   id: string;
-  name: string;
   original_name: string;
   url: string;
   type: string;
@@ -8,6 +7,4 @@ export type File = {
 
   created_at: string;
   updated_at: string;
-};
-
-export type CreateFileInput = Omit<File, 'id' | 'created_at' | 'updated_at'>;
+}
