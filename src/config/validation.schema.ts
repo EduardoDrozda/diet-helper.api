@@ -14,4 +14,7 @@ export default Joi.object({
   MINIO_ROOT_USER: Joi.string().required(),
   MINIO_ROOT_PASSWORD: Joi.string().required(),
   MINIO_DEFAULT_BUCKETS: Joi.string().required(),
+  HASH_ROUNDS: Joi.number().required(),
+  JWT_SECRET: Joi.string().required(),
+  JWT_EXPIRES_IN: Joi.string().required(),
 });

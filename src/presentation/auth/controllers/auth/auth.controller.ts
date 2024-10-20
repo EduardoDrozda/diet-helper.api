@@ -1,11 +1,33 @@
-import { Controller, Post } from '@nestjs/common';
+import { CreateAuthDTO, GetAuthDTO } from '@application/dtos/auth';
+import {
+  AUTH_SERVICE,
+  IAuthService,
+} from '@domain/services/auth/IAuth.service';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Post,
+} from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller()
 export class AuthController {
-  constructor() {}
+  constructor(
+    @Inject(AUTH_SERVICE) private readonly authService: IAuthService,
+  ) {}
 
   @Post('login')
-  async login() {
-    return 'login';
+  @ApiOperation({ summary: 'Authenticates a user' })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: GetAuthDTO,
+  })
+  @HttpCode(HttpStatus.CREATED)
+  async login(@Body() data: CreateAuthDTO): Promise<GetAuthDTO> {
+    return this.authService.login(data);
   }
 }

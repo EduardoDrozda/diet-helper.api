@@ -6,6 +6,8 @@ import { UserService } from './services/user';
 import { FileRepository } from '@infrastructure/repositories/file/file.repository';
 import { FILE_SERVICE } from '@domain/services/file';
 import { FileService } from './services/file/file.service';
+import { AUTH_SERVICE } from '@domain/services/auth/IAuth.service';
+import { AuthService } from './services/auth/auth.service';
 
 @Global()
 @Module({
@@ -26,7 +28,17 @@ import { FileService } from './services/file/file.service';
       provide: FILE_SERVICE,
       useClass: FileService,
     },
+    {
+      provide: AUTH_SERVICE,
+      useClass: AuthService,
+    },
   ],
-  exports: [USER_SERVICE, USER_REPOSITORY, FILE_SERVICE, FILE_REPOSITORY],
+  exports: [
+    USER_SERVICE,
+    USER_REPOSITORY,
+    FILE_SERVICE,
+    FILE_REPOSITORY,
+    AUTH_SERVICE,
+  ],
 })
 export class ApplicationModule {}
