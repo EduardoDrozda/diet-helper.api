@@ -4,11 +4,13 @@ import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 import { User } from '@domain/entities';
 import { IUserRepository, USER_REPOSITORY } from '@domain/repositories';
 import { IUserService } from '@domain/services/user';
+import { HASH_SERVICE, IHashService } from '@infrastructure/hash';
 import { BadRequestException, Inject, NotFoundException } from '@nestjs/common';
 
 export class UserService implements IUserService {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
+    @Inject(HASH_SERVICE) private readonly hashService: IHashService,
   ) {}
 
   async create(data: CreateUserDTO): Promise<GetUserDTO> {
@@ -23,7 +25,7 @@ export class UserService implements IUserService {
     const { id, created_at, updated_at } = await this.userRepository.create({
       name,
       email,
-      password,
+      password: await this.hashService.hash(password),
     });
 
     return { id, name, email, created_at, updated_at };
@@ -40,7 +42,7 @@ export class UserService implements IUserService {
     return { id, email, name, created_at, updated_at };
   }
 
-  private async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
     return this.userRepository.findByEmail(email);
   }
 

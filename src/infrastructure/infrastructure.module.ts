@@ -1,17 +1,12 @@
 import validationSchema from '@config/validation.schema';
-import {
-  ENVIROMENT_SERVICE,
-  EnviromentService,
-} from '@infrastructure/enviroment';
-import {
-  STORAGE_CLIENT_SERVICE,
-  StorageService,
-} from '@infrastructure/storage';
-import { StorageClientService } from '@infrastructure/storage/storage-client.service';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { MinioModule } from 'nestjs-minio-client';
 import { join } from 'path';
+import { ENVIROMENT_SERVICE, EnviromentService } from './enviroment';
+import { STORAGE_CLIENT_SERVICE, StorageService } from './storage';
+import { StorageClientService } from './storage/storage-client.service';
+import { HASH_SERVICE, HashService } from './hash';
 
 @Global()
 @Module({
@@ -41,7 +36,11 @@ import { join } from 'path';
       provide: STORAGE_CLIENT_SERVICE,
       useClass: StorageClientService,
     },
+    {
+      provide: HASH_SERVICE,
+      useClass: HashService,
+    },
   ],
-  exports: [ENVIROMENT_SERVICE, STORAGE_CLIENT_SERVICE],
+  exports: [ENVIROMENT_SERVICE, STORAGE_CLIENT_SERVICE, HASH_SERVICE],
 })
-export class GlobalModule {}
+export class InfrastructureModule {}

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { UserModule } from '@presentation/user/user.module';
-import { MeatModule } from '@presentation/meat/meat.module';
-import { GlobalModule } from '@infrastructure/modules/global/global.module';
+import { ApplicationModule } from '@application/application.module';
+import { InfrastructureModule } from '@infrastructure/infrastructure.module';
+import { PresentationModule } from '@presentation/presentation.module';
 
 @Module({
-  imports: [GlobalModule, UserModule, MeatModule],
+  imports: [ApplicationModule, InfrastructureModule, PresentationModule],
 })
 export class AppModule {}
