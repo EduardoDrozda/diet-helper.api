@@ -12,6 +12,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { IsPublic } from '@shared/decorators';
 
 @ApiTags('Auth')
 @Controller()
@@ -20,6 +21,7 @@ export class AuthController {
     @Inject(AUTH_SERVICE) private readonly authService: IAuthService,
   ) {}
 
+  @IsPublic()
   @Post('login')
   @ApiOperation({ summary: 'Authenticates a user' })
   @ApiResponse({
