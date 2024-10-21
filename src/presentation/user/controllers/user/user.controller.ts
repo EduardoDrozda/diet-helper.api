@@ -3,6 +3,7 @@ import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 import { FileService } from '@application/services/file/file.service';
 import { FILE_SERVICE } from '@domain/services/file';
 import { IUserService, USER_SERVICE } from '@domain/services/user';
+import { LoggerUser, User } from '@infrastructure/guards';
 
 import {
   Body,
@@ -43,7 +44,11 @@ export class UserController {
     status: HttpStatus.CREATED,
   })
   @HttpCode(HttpStatus.CREATED)
-  async uploadAvatar(@UploadedFile() avatar: UploadFileDTO): Promise<void> {
+  async uploadAvatar(
+    @User() user: LoggerUser,
+    @UploadedFile() avatar: UploadFileDTO,
+  ): Promise<void> {
+    console.log(user);
     // return this.userService.uploadAvatar(avatar.id, avatar);
   }
 }
