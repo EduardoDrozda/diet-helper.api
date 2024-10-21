@@ -3,6 +3,7 @@ import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 
 import { User } from '@domain/entities';
 import { IUserRepository, USER_REPOSITORY } from '@domain/repositories';
+import { FILE_SERVICE, IFileService } from '@domain/services/file';
 import { IUserService } from '@domain/services/user';
 import { HASH_SERVICE, IHashService } from '@infrastructure/hash';
 import { BadRequestException, Inject, NotFoundException } from '@nestjs/common';
@@ -11,6 +12,7 @@ export class UserService implements IUserService {
   constructor(
     @Inject(USER_REPOSITORY) private readonly userRepository: IUserRepository,
     @Inject(HASH_SERVICE) private readonly hashService: IHashService,
+    @Inject(FILE_SERVICE) private readonly fileService: IFileService,
   ) {}
 
   async create(data: CreateUserDTO): Promise<GetUserDTO> {
@@ -46,7 +48,25 @@ export class UserService implements IUserService {
     return this.userRepository.findByEmail(email);
   }
 
-  uploadAvatar(id: string, avatar: UploadFileDTO): Promise<void> {
-    throw new Error('Method not implemented.');
+  async uploadAvatar(
+    userId: string,
+    avatar: UploadFileDTO,
+  ): Promise<GetUserDTO> {
+    const user = await this.findById(userId);
+    const file = await this.fileService.upload(userId, avatar);
+    user.avatar_url = file.url;
+
+    const { avatar_url, updated_at } = await this.userRepository.update(user);
+
+    console.log(avatar_url, updated_at);
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatar_url,
+      created_at: user.created_at,
+      updated_at,
+    };
   }
 }

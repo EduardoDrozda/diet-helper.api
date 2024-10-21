@@ -18,12 +18,13 @@ export class FileService implements IFileService {
     private readonly fileRepository: IFileRepository,
   ) {}
 
-  async upload(data: UploadFileDTO): Promise<GetFileDTO> {
+  async upload(userId: string, data: UploadFileDTO): Promise<GetFileDTO> {
     const storedFile = await this.storageService.upload(data);
 
     const payload: CreateFileInput = {
       name: storedFile.name,
       original_name: data.originalname,
+      user_id: userId,
       url: storedFile.url,
       size: data.size,
       type: data.mimetype,

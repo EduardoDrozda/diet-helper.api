@@ -11,12 +11,14 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
+  Patch,
   Post,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { IsPublic } from '@shared/decorators';
 
 @ApiTags('Users')
 @Controller('users')
@@ -26,6 +28,7 @@ export class UserController {
     @Inject(FILE_SERVICE) private readonly fileService: FileService,
   ) {}
 
+  @IsPublic()
   @Post()
   @ApiOperation({ summary: 'Create a new user' })
   @ApiResponse({
@@ -37,7 +40,7 @@ export class UserController {
     return await this.userService.create(data);
   }
 
-  @Post('avatar')
+  @Patch('avatar')
   @UseInterceptors(FileInterceptor('avatar'))
   @ApiOperation({ summary: 'Upload user avatar' })
   @ApiResponse({
@@ -48,7 +51,6 @@ export class UserController {
     @User() user: LoggerUser,
     @UploadedFile() avatar: UploadFileDTO,
   ): Promise<void> {
-    console.log(user);
-    // return this.userService.uploadAvatar(avatar.id, avatar);
+    await this.userService.uploadAvatar(user.id, avatar);
   }
 }

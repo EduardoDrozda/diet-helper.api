@@ -1,4 +1,4 @@
-import { User } from '@domain/entities';
+import { UpdateServiceInput, User } from '@domain/entities';
 import { IUserRepository } from '@domain/repositories';
 import { knex } from '@infrastructure/database';
 import { Knex } from 'knex';
@@ -25,5 +25,14 @@ export class UserRepository implements IUserRepository {
 
   async findByEmail(email: string): Promise<User | null> {
     return this.database('users').where('email', email).first();
+  }
+
+  async update(user: UpdateServiceInput): Promise<User> {
+    const [result] = await this.database('users')
+      .where('id', user.id)
+      .update(user)
+      .returning('*');
+
+    return result;
   }
 }
