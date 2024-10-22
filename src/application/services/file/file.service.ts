@@ -2,7 +2,7 @@ import { GetFileDTO } from '@application/dtos/file/get-file.dto';
 import { UploadFileDTO } from '@application/dtos/file/upload-file.dto';
 import { CreateFileInput } from '@domain/entities';
 import { FILE_REPOSITORY, IFileRepository } from '@domain/repositories';
-import { IFileService, UploadParams } from '@domain/services/file';
+import { IFileService, UploadParams } from '@domain/services';
 import {
   IStorageClientService,
   STORAGE_CLIENT_SERVICE,

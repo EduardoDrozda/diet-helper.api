@@ -1,6 +1,6 @@
 import { CreateAuthDTO, GetAuthDTO } from '@application/dtos/auth';
-import { IAuthService } from '@domain/services/auth/IAuth.service';
-import { IUserService, USER_SERVICE } from '@domain/services/user';
+import { IAuthService } from '@domain/services/IAuth.service';
+import { IUserService, USER_SERVICE } from '@domain/services';
 import { HASH_SERVICE, IHashService } from '@infrastructure/hash';
 import { IJwtService, JWT_SERVICE } from '@infrastructure/jwt/IJwt.service';
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';

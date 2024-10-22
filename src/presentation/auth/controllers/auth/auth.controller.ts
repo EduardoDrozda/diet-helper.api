@@ -2,7 +2,7 @@ import { CreateAuthDTO, GetAuthDTO } from '@application/dtos/auth';
 import {
   AUTH_SERVICE,
   IAuthService,
-} from '@domain/services/auth/IAuth.service';
+} from '@domain/services/IAuth.service';
 import {
   Body,
   Controller,

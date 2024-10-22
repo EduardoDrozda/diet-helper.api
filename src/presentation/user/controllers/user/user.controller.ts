@@ -1,8 +1,8 @@
 import { UploadFileDTO } from '@application/dtos/file/upload-file.dto';
 import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 import { FileService } from '@application/services/file/file.service';
-import { FILE_SERVICE } from '@domain/services/file';
-import { IUserService, USER_SERVICE } from '@domain/services/user';
+import { FILE_SERVICE } from '@domain/services';
+import { IUserService, USER_SERVICE } from '@domain/services';
 import { LoggerUser, User } from '@infrastructure/guards';
 
 import {

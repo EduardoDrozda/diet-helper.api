@@ -3,9 +3,9 @@ import { UserController } from './controllers/user';
 
 import { UserRepository } from '@infrastructure/repositories/user';
 import { FILE_REPOSITORY, USER_REPOSITORY } from '@domain/repositories';
-import { USER_SERVICE } from '@domain/services/user';
+import { USER_SERVICE } from '@domain/services';
 import { UserService } from '@application/services/user';
-import { FILE_SERVICE } from '@domain/services/file';
+import { FILE_SERVICE } from '@domain/services';
 import { FileService } from '@application/services/file/file.service';
 import { FileRepository } from '@infrastructure/repositories/file/file.repository';
 

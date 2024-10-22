@@ -1,12 +1,13 @@
 import { FILE_REPOSITORY, USER_REPOSITORY } from '@domain/repositories';
-import { USER_SERVICE } from '@domain/services/user';
+import { FILE_SERVICE, USER_SERVICE } from '@domain/services';
+
 import { UserRepository } from '@infrastructure/repositories/user';
 import { Global, Module } from '@nestjs/common';
 import { UserService } from './services/user';
 import { FileRepository } from '@infrastructure/repositories/file/file.repository';
-import { FILE_SERVICE } from '@domain/services/file';
+
 import { FileService } from './services/file/file.service';
-import { AUTH_SERVICE } from '@domain/services/auth/IAuth.service';
+import { AUTH_SERVICE } from '@domain/services/IAuth.service';
 import { AuthService } from './services/auth/auth.service';
 
 @Global()

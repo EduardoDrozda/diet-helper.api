@@ -3,7 +3,7 @@ import {
   GetMeatDTO,
   UpdateMeatDTO,
 } from '@application/dtos/meat';
-import { IMeatService, MEAT_SERVICE } from '@domain/services/meat';
+import { IMeatService, MEAT_SERVICE } from '@domain/services';
 
 import {
   Body,

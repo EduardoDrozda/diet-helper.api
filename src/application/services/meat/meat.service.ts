@@ -6,7 +6,7 @@ import {
   CreateMeatDTO,
   UpdateMeatDTO,
 } from '@application/dtos/meat';
-import { IMeatService } from '@domain/services/meat';
+import { IMeatService } from '@domain/services';
 
 @Injectable()
 export class MeatService implements IMeatService {

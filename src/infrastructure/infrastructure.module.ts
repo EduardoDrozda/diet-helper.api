@@ -14,19 +14,9 @@ import { JwtService } from './jwt/jwt.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: [join(__dirname, '..', '.env')],
+      envFilePath: [join(__dirname, '..', '..', '..', '.env')],
       validationSchema: validationSchema,
     }),
-    // MinioModule.registerAsync({
-    //   inject: [ENVIROMENT_SERVICE],
-    //   useFactory: (envService: EnviromentService) => ({
-    //     endPoint: envService.get('MINIO_ENDPOINT'),
-    //     port: parseInt(envService.get('MINIO_PORT')),
-    //     useSSL: false,
-    //     accessKey: envService.get('MINIO_ROOT_USER'),
-    //     secretKey: envService.get('MINIO_ROOT_PASSWORD'),
-    //   }),
-    // }),
     JwtModule.registerAsync({
       inject: [ENVIROMENT_SERVICE],
       useFactory: (envService: EnviromentService) => ({

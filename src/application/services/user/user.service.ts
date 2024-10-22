@@ -3,8 +3,8 @@ import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
 
 import { User } from '@domain/entities';
 import { IUserRepository, USER_REPOSITORY } from '@domain/repositories';
-import { FILE_SERVICE, IFileService } from '@domain/services/file';
-import { IUserService } from '@domain/services/user';
+import { FILE_SERVICE, IFileService } from '@domain/services';
+import { IUserService } from '@domain/services';
 import { HASH_SERVICE, IHashService } from '@infrastructure/hash';
 import { BadRequestException, Inject, NotFoundException } from '@nestjs/common';
 
