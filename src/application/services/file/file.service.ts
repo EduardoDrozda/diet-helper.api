@@ -32,4 +32,29 @@ export class FileService implements IFileService {
 
     return await this.fileRepository.create(payload);
   }
+
+  async findByUrl(url: string): Promise<GetFileDTO> {
+    return await this.fileRepository.findByUrl(url);
+  }
+
+  async update(file: GetFileDTO, data: UploadFileDTO): Promise<GetFileDTO> {
+    await this.storageService.delete(file.original_name);
+    const storedFile = await this.storageService.upload(data);
+
+    const payload: CreateFileInput = {
+      name: storedFile.name,
+      original_name: data.originalname,
+      url: storedFile.url,
+      size: data.size,
+      type: data.mimetype,
+      user_id: file.user_id,
+    };
+
+    const updatedFile = await this.fileRepository.update({
+      ...file,
+      ...payload,
+    });
+
+    return updatedFile;
+  }
 }

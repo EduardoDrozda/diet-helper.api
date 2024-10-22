@@ -14,4 +14,16 @@ export class FileRepository implements IFileRepository {
     const [result] = await this.knex<File>('files').insert(file).returning('*');
     return result;
   }
+
+  async findByUrl(url: string): Promise<File> {
+    return await this.knex<File>('files').where({ url }).first();
+  }
+
+  async update(file: File): Promise<File> {
+    const [result] = await this.knex<File>('files')
+      .where({ id: file.id })
+      .update(file)
+      .returning('*');
+    return result;
+  }
 }

@@ -5,4 +5,6 @@ export const FILE_SERVICE = Symbol('FileService');
 
 export interface IFileService {
   upload(userId: string, data: UploadFileDTO): Promise<GetFileDTO>;
+  update(file: GetFileDTO, data: UploadFileDTO): Promise<GetFileDTO>;
+  findByUrl(url: string): Promise<GetFileDTO>;
 }
