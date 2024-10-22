@@ -14,17 +14,29 @@ export interface StoredFile {
   url: string;
 }
 
-export interface IStorageService<T> {
-  get getClient(): T;
-  get bucketName(): string;
+export interface UploadParams {
+  isPublic?: boolean;
+  bucketName?: string;
+}
 
-  upload(file: StorageFile, bucketName: string): Promise<StoredFile>;
-  delete(file: string, bucketName: string): Promise<void>;
+export interface IStorageService<T> {
+  get client(): T;
+  get defaultBucketName(): string;
+
+  upload(file: StorageFile, params?: UploadParams): Promise<StoredFile>;
+  makeFilePublic(file: string, params?: UploadParams): Promise<void>;
+  getPresignedUrl(file: string, params?: UploadParams): Promise<string>;
+  delete(file: string, params?: UploadParams): Promise<void>;
 }
 
 export const STORAGE_CLIENT_SERVICE = Symbol('IStorageClientService');
 
 export interface IStorageClientService {
-  upload(file: StorageFile, bucketName?: string): Promise<StoredFile>;
-  delete(file: string, bucketName?: string): Promise<void>;
+  upload(file: StorageFile, params?: UploadParams): Promise<StoredFile>;
+  update(
+    file: string,
+    data: StorageFile,
+    params?: UploadParams,
+  ): Promise<StoredFile>;
+  delete(file: string, params?: UploadParams): Promise<void>;
 }

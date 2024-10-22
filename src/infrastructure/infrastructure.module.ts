@@ -1,7 +1,6 @@
 import validationSchema from '@config/validation.schema';
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { MinioModule } from 'nestjs-minio-client';
 import { join } from 'path';
 import { ENVIROMENT_SERVICE, EnviromentService } from './enviroment';
 import { STORAGE_CLIENT_SERVICE, StorageService } from './storage';
@@ -18,16 +17,16 @@ import { JwtService } from './jwt/jwt.service';
       envFilePath: [join(__dirname, '..', '.env')],
       validationSchema: validationSchema,
     }),
-    MinioModule.registerAsync({
-      inject: [ENVIROMENT_SERVICE],
-      useFactory: (envService: EnviromentService) => ({
-        endPoint: envService.get('MINIO_ENDPOINT'),
-        port: parseInt(envService.get('MINIO_PORT')),
-        useSSL: false,
-        accessKey: envService.get('MINIO_ROOT_USER'),
-        secretKey: envService.get('MINIO_ROOT_PASSWORD'),
-      }),
-    }),
+    // MinioModule.registerAsync({
+    //   inject: [ENVIROMENT_SERVICE],
+    //   useFactory: (envService: EnviromentService) => ({
+    //     endPoint: envService.get('MINIO_ENDPOINT'),
+    //     port: parseInt(envService.get('MINIO_PORT')),
+    //     useSSL: false,
+    //     accessKey: envService.get('MINIO_ROOT_USER'),
+    //     secretKey: envService.get('MINIO_ROOT_PASSWORD'),
+    //   }),
+    // }),
     JwtModule.registerAsync({
       inject: [ENVIROMENT_SERVICE],
       useFactory: (envService: EnviromentService) => ({

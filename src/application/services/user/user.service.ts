@@ -73,11 +73,9 @@ export class UserService implements IUserService {
     const file = await this.fileService.findByUrl(user.avatar_url);
 
     if (!file) {
-      console.log('upload');
-      return await this.fileService.upload(user.id, avatar);
+      return await this.fileService.upload(user.id, avatar, { isPublic: true });
     }
 
-    console.log('update');
-    return await this.fileService.update(file, avatar);
+    return await this.fileService.update(file, avatar, { isPublic: true });
   }
 }

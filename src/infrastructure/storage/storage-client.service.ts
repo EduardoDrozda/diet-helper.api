@@ -3,6 +3,7 @@ import {
   IStorageClientService,
   StorageFile,
   StoredFile,
+  UploadParams,
 } from './IStorage.service';
 import { StorageService } from './storage.service';
 
@@ -10,11 +11,20 @@ import { StorageService } from './storage.service';
 export class StorageClientService implements IStorageClientService {
   constructor(private readonly storageService: StorageService) {}
 
-  async upload(file: StorageFile, bucketName?: string): Promise<StoredFile> {
-    return this.storageService.upload(file, bucketName);
+  async upload(file: StorageFile, params?: UploadParams): Promise<StoredFile> {
+    return this.storageService.upload(file, params);
   }
 
-  async delete(file: string, bucketName?: string): Promise<void> {
-    return this.storageService.delete(file, bucketName);
+  async update(
+    file: string,
+    data: StorageFile,
+    params?: UploadParams,
+  ): Promise<StoredFile> {
+    await this.storageService.delete(file, params);
+    return this.storageService.upload(data, params);
+  }
+
+  async delete(file: string, params?: UploadParams): Promise<void> {
+    return this.storageService.delete(file, params);
   }
 }
