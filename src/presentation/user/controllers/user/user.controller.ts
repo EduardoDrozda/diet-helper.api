@@ -1,7 +1,5 @@
 import { UploadFileDTO } from '@application/dtos/file/upload-file.dto';
 import { CreateUserDTO, GetUserDTO } from '@application/dtos/user';
-import { FileService } from '@application/services/file/file.service';
-import { FILE_SERVICE } from '@domain/services';
 import { IUserService, USER_SERVICE } from '@domain/services';
 import { LoggerUser, User } from '@infrastructure/guards';
 
@@ -25,7 +23,6 @@ import { IsPublic } from '@shared/decorators';
 export class UserController {
   constructor(
     @Inject(USER_SERVICE) private readonly userService: IUserService,
-    @Inject(FILE_SERVICE) private readonly fileService: FileService,
   ) {}
 
   @IsPublic()
