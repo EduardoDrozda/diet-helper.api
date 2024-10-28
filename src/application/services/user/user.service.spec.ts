@@ -3,6 +3,8 @@ import { UserService } from './user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserDTO } from '@application/dtos/user';
 import { User } from '@domain/entities';
+import { HASH_SERVICE } from '@infrastructure/hash';
+import { hashMockService } from '@shared/mocks/services';
 
 describe('UserService', () => {
   let service: UserService;
@@ -10,6 +12,7 @@ describe('UserService', () => {
     create: jest.fn(),
     findByEmail: jest.fn(),
     findById: jest.fn(),
+    update: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -19,6 +22,10 @@ describe('UserService', () => {
         {
           provide: USER_REPOSITORY,
           useValue: repository,
+        },
+        {
+          provide: HASH_SERVICE,
+          useValue: hashMockService,
         },
       ],
     }).compile();

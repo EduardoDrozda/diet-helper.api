@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MeatController } from './meat.controller';
-import { IMeatService, MEAT_SERVICE } from '@application/services/meat';
+
 import { CreateMeatDTO } from '@application/dtos/meat';
 import { MeatTypeEnum } from '@domain/enums';
+import { IMeatService, MEAT_SERVICE } from '@domain/services';
 
 describe('MeatController', () => {
   let controller: MeatController;

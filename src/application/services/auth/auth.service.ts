@@ -15,7 +15,6 @@ export class AuthService implements IAuthService {
 
   async login({ email, password }: CreateAuthDTO): Promise<GetAuthDTO> {
     const user = await this.userService.findByEmail(email);
-
     if (!user || !(await this.hashService.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
