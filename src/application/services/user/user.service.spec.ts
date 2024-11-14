@@ -4,7 +4,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserDTO } from '@application/dtos/user';
 import { User } from '@domain/entities';
 import { HASH_SERVICE } from '@infrastructure/hash';
-import { hashMockService } from '@shared/mocks/services';
+import { fileServiceMock, hashMockService } from '@shared/mocks/services';
+import { FILE_SERVICE } from '@domain/services';
 
 describe('UserService', () => {
   let service: UserService;
@@ -27,6 +28,10 @@ describe('UserService', () => {
           provide: HASH_SERVICE,
           useValue: hashMockService,
         },
+        {
+          provide: FILE_SERVICE,
+          useValue: fileServiceMock,
+        }
       ],
     }).compile();
 
@@ -49,6 +54,7 @@ describe('UserService', () => {
       id: 'id',
       email: data.email,
       name: data.name,
+      password: data.password,
       created_at: new Date().toDateString(),
       updated_at: new Date().toDateString(),
     } as User);
@@ -58,8 +64,8 @@ describe('UserService', () => {
     expect(repository.create).toHaveBeenCalledWith({
       email: data.email,
       name: data.name,
-      password: data.password,
     });
+
     expect(repository.create).toHaveBeenCalledTimes(1);
   });
 
